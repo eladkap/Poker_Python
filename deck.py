@@ -1,22 +1,24 @@
 from card import *
-from constants import *
+from hand import *
+from settings import *
 import random
 
 
 class Deck:
-	def __init__(self):
+	def __init__(self, packs=1):
 		self.cards = []
-		for suit in range(1, 5):
-			for value in range(2, 15):
-				if value >= 11:
-					symbol = FACE[value]
-				else:
-					symbol = str(value)
-				card = Card(symbol, value, suit)
-				self.cards.append(card)
+		for i in range(packs):
+			for suit in range(0, 4):
+				for value in range(2, 15):
+					symbol = CARD_SYMBOLS[value]
+					card = Card(symbol, value, suit, 0, 0, CARD_WIDTH, CARD_HEIGHT)
+					self.cards.append(card)
 		
 	def __len__(self):
 		return len(self.cards)
+		
+	def isEmpty(self):
+		return len(self.cards) == 0
 		
 	def swap(self, i, j):
 		self.cards[i], self.cards[j] = self.cards[j], self.cards[i]
@@ -28,6 +30,17 @@ class Deck:
 		
 	def get(self, index):
 		return self.cards[index]
+		
+	def top(self):
+		if len(self.cards) > 0:
+			return self.cards[-1]
+		return None
+		
+	def pop(self):
+		return self.cards.pop()
+		
+	def pushFront(self, card):
+		self.cards.insert(0, card)
 
 	def show(self):
 		for card in self.cards:

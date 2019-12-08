@@ -1,14 +1,14 @@
 from card import *
 from hand import *
 from deck import *
-from constants import *
+from settings import *
 
 
-def strongest_hand(hand1, hand2):
+def strongerHand(hand1, hand2):
 	hand1.sort()
 	hand2.sort()
-	rank1, max1 = hand1.rank()
-	rank2, max2 = hand2.rank()
+	rank1, _, max1 = hand1.rank()
+	rank2, _, max2 = hand2.rank()
 	if rank1 > rank2:
 		return 1
 	elif rank1 < rank2:
@@ -19,26 +19,42 @@ def strongest_hand(hand1, hand2):
 		elif max1 < max2:
 			return 2
 		else:
-			max1 = max(hand1.get_values())
-			max2 = max(hand2.get_values())
+			max1 = max(hand1.getValues())
+			max2 = max(hand2.getValues())
 			if max1 > max2:
 				return 1
 			elif max1 < max2:
 				return 2
 	return 0
 
+	
+def get_value_of_symbol(symbol):
+	if symbol == 'J':
+		return 11
+	if symbol == 'Q':
+		return 12
+	if symbol == 'K':
+		return 13
+	if symbol == 'A':
+		return 14
+	return int(symbol)
+	
 
 def read_line(line):
 	fields = line.split(' ')
 	hand1 = Hand()
 	hand2 = Hand()
 	for i in range(0, 5):
-		card = Card()
-		card.set(fields[i])
+		value = get_value_of_symbol(fields[i][0])
+		symbol = CARD_SYMBOLS[value]
+		suit = CARD_LETTERS_SUITS[fields[i][1]]
+		card = Card(symbol, value, suit)
 		hand1.add(card)
 	for i in range(5, 10):
-		card = Card()
-		card.set(fields[i])
+		value = get_value_of_symbol(fields[i][0])
+		symbol = fields[i][1]
+		suit = CARD_LETTERS_SUITS[fields[i][1]]
+		card = Card(symbol, value, suit)
 		hand2.add(card)
 	return hand1, hand2
 		
@@ -54,7 +70,7 @@ def read_hands(file):
 	return player1_wins
 	
 	
-def test():
+def test1():
 	#line = '8C 8S 8D 9H 9S 7C 2C 5C 3C AC'
 	line = '4C 4S 7D 7H KS 7C 2C 5C 3C AC'
 	hand1, hand2 = read_line(line)
@@ -70,16 +86,16 @@ def test():
 	
 	rank2, max2 = hand2.rank()
 	print(RANKS[rank2], max2)
-	
+
 	'''
 	deck = Deck()
 	deck.shuffle()
 	deck.show()
 	print(len(deck))
 	'''
+
 	
-	
-if __name__ == '__main__':
+def test2():
 	h1 = None
 	h2 = None
 	with open('C:\Temp\p054_poker.txt', 'r') as reader:
@@ -97,4 +113,8 @@ if __name__ == '__main__':
 		print(len(lines))
 		print(player1_wins)
 		print(player2_wins)
+
+	
+if __name__ == '__main__':
+	test1()
 		
