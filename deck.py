@@ -11,7 +11,7 @@ class Deck:
 			for suit in range(0, 4):
 				for value in range(2, 15):
 					symbol = CARD_SYMBOLS[value]
-					card = Card(symbol, value, suit, 0, 0, CARD_WIDTH, CARD_HEIGHT)
+					card = Card(symbol, suit, 0, 0, CARD_WIDTH, CARD_HEIGHT)
 					self.cards.append(card)
 		
 	def __len__(self):

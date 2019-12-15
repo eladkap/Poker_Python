@@ -14,10 +14,10 @@ class PokerGame:
 		self.setupGame()
 
 	def setupGame(self):
-		self.setButtons()
 		self.resetRound()
 		
 	def resetRound(self):
+		self.setButtons()
 		self.game_quit = False
 		window.fill(BLACK)
 		self.deck = Deck()
@@ -53,6 +53,7 @@ class PokerGame:
 					mouse_pos = pygame.mouse.get_pos()
 					self.mousePressed(mouse_pos)
 
+			#self.btn_new_round.disable()
 			self.btn_new_round.hide()
 			self.btn_reveal_dealer_hand.show()
 			self.btn_sort_hand.show()
@@ -83,7 +84,7 @@ class PokerGame:
 		self.btn_swap_cards.disable()
 		
 	def setButtons(self):
-		self.btn_new_round = Button(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, BUTTON_WIDTH, BUTTON_HEIGHT, 'New Round', FONT_FAMILY1, SMALL_FONT, BLACK, OFF_WHITE, AQUA)
+		self.btn_new_round = Button(SCREEN_WIDTH / 2 - 200, SCREEN_HEIGHT / 2, BUTTON_WIDTH, BUTTON_HEIGHT, 'New Round', FONT_FAMILY1, SMALL_FONT, BLACK, OFF_WHITE, AQUA)
 		self.btn_reveal_dealer_hand = Button(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, BUTTON_WIDTH, BUTTON_HEIGHT, 'Reveal Dealer', FONT_FAMILY1, SMALL_FONT, BLACK, OFF_WHITE, AQUA)
 		self.btn_sort_hand = Button(SCREEN_WIDTH * 0.75, 100, BUTTON_WIDTH, BUTTON_HEIGHT, 'Sort Hand', FONT_FAMILY1, SMALL_FONT, BLACK, OFF_WHITE, AQUA)
 		self.btn_swap_cards = Button(SCREEN_WIDTH * 0.75, 150, BUTTON_WIDTH, BUTTON_HEIGHT, 'Swap Cards', FONT_FAMILY1, SMALL_FONT, BLACK, OFF_WHITE, AQUA)	
@@ -119,7 +120,11 @@ class PokerGame:
 		self.player_hand.display()
 		self.dealer_hand.display()
 		self.btn_reveal_dealer_hand.disable()
+		#self.btn_new_round.enable()
+		self.btn_new_round.show()
 		self.checkWinner()
+		self.displayButtons()
+		#pygame.display.update()
 	
 	def checkWinner(self):
 		res = strongerHand(self.player_hand, self.dealer_hand)
@@ -129,11 +134,8 @@ class PokerGame:
 			showText('Dealer Wins!', [SCREEN_WIDTH / 2 - 200, SCREEN_HEIGHT / 2 - 100], RED, FONT_FAMILY1, MEDIUM_FONT, False, 0)
 		else:
 			showText('TIE!',[SCREEN_WIDTH / 2 - 200, SCREEN_HEIGHT / 2 - 100], WHITE, FONT_FAMILY1, MEDIUM_FONT, False, 0)
-		self.displayRanks(True, True);
-		self.btn_new_round.show()
-		self.btn_reveal_dealer_hand.disable()
-		self.displayButtons()
-
+		self.displayRanks(True, True)
+		
 	def mousePressed(self, mouse_pos):
 		#click = pygame.mouse.get_pressed()
 		if self.btn_swap_cards.mouseClick(mouse_pos):
@@ -142,6 +144,8 @@ class PokerGame:
 			self.sortPlayerHand()
 		if self.btn_reveal_dealer_hand.mouseClick(mouse_pos):
 			self.revealDealerHand()
+		if self.btn_new_round.mouseClick(mouse_pos):
+			self.resetRound()
 		
 		if self.btn_swap_cards.isEnabled():
 			for card in self.player_hand.cards:

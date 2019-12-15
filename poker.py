@@ -114,7 +114,37 @@ def test2():
 		print(player1_wins)
 		print(player2_wins)
 
+
+def test3():
+	card11 = Card('K', 1, 0, 0, 0, 0)
+	card12 = Card('K', 0, 0, 0, 0, 0)
+	card13 = Card('Q', 0, 0, 0, 0, 0)
+	card14 = Card('8', 0, 0, 0, 0, 0)
+	card15 = Card('7', 0, 0, 0, 0, 0)
+	hand1 = Hand(0, 0, None)
+	hand1.addCard(card11, None)
+	hand1.addCard(card12, None)
+	hand1.addCard(card13, None)
+	hand1.addCard(card14, None)
+	hand1.addCard(card15, None)
+	print(hand1.rank())
+
+	card21 = Card('A', 1, 0, 0, 0, 0)
+	card22 = Card('A', 0, 0, 0, 0, 0)
+	card23 = Card('Q', 0, 0, 0, 0, 0)
+	card24 = Card('8', 0, 0, 0, 0, 0)
+	card25 = Card('7', 0, 0, 0, 0, 0)
+	hand2 = Hand(0, 0, None)
+	hand2.addCard(card21, None)
+	hand2.addCard(card22, None)
+	hand2.addCard(card23, None)
+	hand2.addCard(card24, None)
+	hand2.addCard(card25, None)
+	print(hand2.rank())
+
+	print(strongerHand(hand1, hand2))
+
 	
 if __name__ == '__main__':
-	test1()
+	test3()
 		

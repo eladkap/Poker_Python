@@ -4,9 +4,9 @@ from utils import *
 
 
 class Card:
-	def __init__(self, symbol, value, suit, x, y, w, h):
+	def __init__(self, symbol, suit, x, y, w, h):
 		self.symbol = symbol
-		self.value = value
+		self.value = CARD_VALUES[symbol]
 		self.suit = suit
 		self.x = x
 		self.y = y
